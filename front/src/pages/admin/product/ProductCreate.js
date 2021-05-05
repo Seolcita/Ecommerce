@@ -80,15 +80,14 @@ const ProductCreate = () => {
         </div>
 
         <div className="col-md-10">
-          <h4>Product create</h4>
-          <hr />
+          
             {loading ? (
             <LoadingOutlined className="text-danger h1" />
           ) : (
             <h4>Product create</h4>
           )}
           {/* {JSON.stringify(values.subs)} */}
-          {JSON.stringify(values.images)}
+          {/* {JSON.stringify(values.images)} */}
 
           <div className="p-3">
             <FileUpload
