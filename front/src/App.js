@@ -32,6 +32,7 @@ import SubHome from "./pages/sub/SubHome";
 import Shop from "./pages/Shop";
 import Cart from "./pages/Cart";
 import SideDrawer from "./components/drawer/SideDrawer";
+import Checkout from "./pages/Checkout";
 
 import UserRoute from "./components/routes/UserRoute";
 import AdminRoute from "./components/routes/AdminRoute";
@@ -103,7 +104,7 @@ const App = () => {
       <Route exact path="/sub/:slug" component={SubHome} />
       <Route exact path="/shop" component={Shop} />
       <Route exact path="/cart" component={Cart} />
-      
+      <UserRoute exact path="/checkout" component={Checkout} />
     </Switch>
     </>
   )
