@@ -12,8 +12,6 @@ import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import CategoryForm from "../../../components/forms/CategoryForm";
 import LocalSearch from "../../../components/forms/LocalSearch";
 
-
-
 const CategoryCreate = () => {
   const { user } = useSelector((state) => ({ ...state }));
 
@@ -36,7 +34,7 @@ const CategoryCreate = () => {
     setLoading(true);
     createCategory({ name }, user.token)
       .then((res) => {
-        // console.log(res)
+        console.log("categoryName--------->", res);
         setLoading(false);
         setName("");
         toast.success(`"${res.data.name}" is created`);
@@ -116,6 +114,5 @@ const CategoryCreate = () => {
     </div>
   );
 };
-
 
 export default CategoryCreate;

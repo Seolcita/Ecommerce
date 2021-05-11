@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Card, Tooltip } from "antd";
 import { EyeOutlined, ShoppingCartOutlined } from "@ant-design/icons";
-import laptop from "../../images/laptop.png";
+import outofstock from "../../images/outofstock.png";
 import { Link } from "react-router-dom";
 import { showAverage } from "../../functions/rating";
 import _ from "lodash";
@@ -12,12 +12,16 @@ const { Meta } = Card;
 const ProductCard = ({ product }) => {
   const [tooltip, setTooltip] = useState("Click to add");
 
-
   // redux
   const { user, cart } = useSelector((state) => ({ ...state }));
   const dispatch = useDispatch();
 
   const handleAddToCart = () => {
+    if (product.quantity < 1) {
+      setTooltip("Out of stock");
+      return;
+    }
+
     // create cart array
     let cart = [];
     if (typeof window !== "undefined") {
@@ -38,12 +42,11 @@ const ProductCard = ({ product }) => {
       // show tooltip
       setTooltip("Added");
 
-      // add to redux state
+      // add to reeux state
       dispatch({
         type: "ADD_TO_CART",
         payload: unique,
       });
-
       // show cart items in side drawer
       dispatch({
         type: "SET_VISIBLE",
@@ -51,6 +54,12 @@ const ProductCard = ({ product }) => {
       });
     }
   };
+
+  // const isOutofStock = () => {
+  //   if (product.quantity < 1) {
+  //     setTooltip("Out of stock");
+  //   }
+  // };
 
   // destructure
   const { images, title, description, slug, price } = product;
@@ -65,7 +74,11 @@ const ProductCard = ({ product }) => {
       <Card
         cover={
           <img
-            src={images && images.length ? images[0].url : laptop}
+            src={
+              images && images.length && product.quantity > 0
+                ? images[0].url
+                : outofstock
+            }
             style={{ height: "150px", objectFit: "cover" }}
             className="p-1"
           />
@@ -75,9 +88,9 @@ const ProductCard = ({ product }) => {
             <EyeOutlined className="text-warning" /> <br /> View Product
           </Link>,
           <Tooltip title={tooltip}>
-            <a onClick={handleAddToCart}>
-              <ShoppingCartOutlined className="text-danger" /> <br /> Add to
-              Cart
+            <a onClick={handleAddToCart} disabled={product.quantity < 1}>
+              <ShoppingCartOutlined className="text-danger" /> <br />
+              {product.quantity < 1 ? "Out of stock" : "Add to Cart"}
             </a>
           </Tooltip>,
         ]}

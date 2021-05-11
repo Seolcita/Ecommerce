@@ -33,6 +33,7 @@ const CreateCouponPage = () => {
     // console.table(name, expiry, discount);
     createCoupon({ name, expiry, discount }, user.token)
       .then((res) => {
+        console.log("response", res);
         setLoading(false);
         loadAllCoupons(); // load all coupons
         setName("");
