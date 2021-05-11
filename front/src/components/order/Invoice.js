@@ -30,11 +30,19 @@ const Invoice = ({ order }) => (
 
       <Table data={order.products}>
         <TableBody>
-          <DataTableCell getContent={(x) => x.product.title} />
-          <DataTableCell getContent={(x) => `$${x.product.price}`} />
-          <DataTableCell getContent={(x) => x.count} />
-          <DataTableCell getContent={(x) => x.product.brand} />
-          <DataTableCell getContent={(x) => x.product.color} />
+          <DataTableCell
+            getContent={(x) => (x.product ? x.product.title : "no title")}
+          />
+          <DataTableCell
+            getContent={(x) => (x.product ? `$${x.product.price}` : "no price")}
+          />
+          <DataTableCell getContent={(x) => (x ? x.count : "no count")} />
+          <DataTableCell
+            getContent={(x) => (x.product ? x.product.brand : "no brand")}
+          />
+          <DataTableCell
+            getContent={(x) => (x.product ? x.product.color : "no color")}
+          />
         </TableBody>
       </Table>
 
